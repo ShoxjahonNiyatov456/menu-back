@@ -3,20 +3,19 @@ import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
     {
-        name: {
+        username: {
             type: String,
-            required: true,
-            trim: true,
+            required: [true, "Foydalanuvchi nomi majburiy"],
         },
         email: {
             type: String,
-            required: true,
+            required: [true, "Email majburiy"],
             unique: true,
             lowercase: true,
         },
         password: {
             type: String,
-            required: true,
+            required: [true, "Parol majburiy"],
             minlength: 6,
         },
         role: {
@@ -28,17 +27,17 @@ const userSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-// Parolni hash qilish (save dan oldin)
+// Parolni hash qilish
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+    this.password = await bcrypt.hash(this.password, 10);
     next();
 });
 
-// Parolni tekshirish uchun method
+// Parolni tekshirish metodi
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-export default mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+export default User;
