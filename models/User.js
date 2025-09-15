@@ -5,17 +5,17 @@ const userSchema = new mongoose.Schema(
     {
         username: {
             type: String,
-            required: [true, "Foydalanuvchi nomi majburiy"],
+            required: true,
         },
         email: {
             type: String,
-            required: [true, "Email majburiy"],
+            required: true,
             unique: true,
             lowercase: true,
         },
         password: {
             type: String,
-            required: [true, "Parol majburiy"],
+            required: true,
             minlength: 6,
         },
         role: {
