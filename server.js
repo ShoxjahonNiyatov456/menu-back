@@ -7,6 +7,7 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import comboRoutes from "./routes/comboRoutes.js";
 import orderRoutes from "./routes/ordersRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -19,6 +20,7 @@ app.use("/upload", uploadRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/combos", comboRoutes);
 app.use("/orders", orderRoutes);
+app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => console.log(`Server ${PORT}-portda ishlayapti`));
