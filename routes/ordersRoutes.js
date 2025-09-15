@@ -6,13 +6,14 @@ import {
     updateOrder,
     deleteOrder,
 } from "../controllers/OrderController.js";
+import { protect, adminOnly } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.get("/", getOrders);
-router.get("/:id", getOrderById);
-router.post("/", createOrder);
-router.put("/:id", updateOrder);
-router.delete("/:id", deleteOrder);
+router.get("/", protect, adminOnly, getOrders);
+router.get("/:id", protect, adminOnly, getOrderById);
+router.post("/", protect, createOrder);
+router.put("/:id", protect, adminOnly, updateOrder);
+router.delete("/:id", protect, adminOnly, deleteOrder);
 
 export default router;

@@ -1,10 +1,10 @@
 import express from "express";
 import upload from "../middlewares/uploadMiddleware.js";
 import { uploadImage } from "../controllers/uploadController.js";
+import { protect, adminOnly } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-// POST /api/upload
-router.post("/", upload.single("image"), uploadImage);
+router.post("/", protect, adminOnly, upload.single("image"), uploadImage);
 
 export default router;
